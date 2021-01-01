@@ -8,12 +8,6 @@ library(lmom) # L-moments method
 library(plotly) 
 library(DT)
 
-rm(list=ls())
-
-
-library(tidyverse)
-library(plotly)
-library(DT) # data table output
 
 # Distributions List for Flood Frequency Analyis (FFA)
 Dist_Options <- c("Exponential", "Gamma", "GEV", "Gen. Logistic", "Gen. Normal", "Gen. Pareto",
@@ -179,13 +173,17 @@ function(input, output, session) {
     
     ffa_results <- gather(ffa_results, "Distribution", "Q", -1)
     
+    ffa_reduced_variate <- -log(-log(1-1/ffa_results$ReturnPeriods))
+    empirical_reduced_variate <- -log(-log(1-1/empirical.ffa$Tr))
+    
     if (length(desired_columns) > 0) (
       
-      ffa_plot <- ggplot(ffa_results, aes(x = ReturnPeriods, y = Q, color = Distribution)) +
-        geom_line() + theme_bw() +
-        geom_point(data = empirical.ffa, aes(x = Tr, y = AMS, colour = "Observed")) +
-        scale_x_log10(name = "Return Periods") +
-        scale_y_continuous(name = 'Y', limits=c(0, NA)) + 
+      ffa_plot <- ggplot(data = ffa_results) +
+        suppressWarnings(geom_line(aes(x = ffa_reduced_variate, y = Q, color = Distribution, `Return Periods`=ReturnPeriods))) + theme_bw() +
+        suppressWarnings(geom_point(data = empirical.ffa, aes(x = empirical_reduced_variate, y = AMS, colour = "Observed", `Return Periods`=Tr))) +
+        scale_x_continuous(name = "Return Periods", breaks =-log(-log(1-1/c(2,5,10,20,50,100,200,500,1000))), 
+                          labels = c(2,5,10,20,50,100,200,500,1000)) +
+        scale_y_continuous(name = 'Quantile', limits=c(0, NA)) + 
         ggtitle("Fitted Distributions") + theme_bw() 
       
     )

@@ -98,7 +98,7 @@ shinyUI(fluidPage(
                  h5("Descriptive Statistics (pastecs::stat.desc):"),
                  verbatimTextOutput("simplestats", placeholder = FALSE),
                  
-                 h5("Linear Moments (lmom::samlmu):"),
+                 h5("Linear Moments & Ratios (lmom::samlmu):"),
                  verbatimTextOutput("lmoments", placeholder = FALSE),
                  
                  
