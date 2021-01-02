@@ -36,7 +36,7 @@ shinyUI(fluidPage(
   pageWithSidebar(
     
     headerPanel(title=div("Frequency Curve Fitting", 
-                          img(src='https://company_logo', 
+                          img(src='', 
                               style = "float:right;"
                           )
     )
