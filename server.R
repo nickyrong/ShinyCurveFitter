@@ -227,7 +227,17 @@ function(input, output, session) {
         # Options for extension "Buttons"
         dom = 'Bfrtip',
         
-        buttons = c('copy', 'csv', 'excel', 'pdf'),
+        buttons = 
+          list(I('colvis'), list(
+            extend = 'collection',
+            buttons = list(
+              list(extend = 'csv', 
+                   filename = "fitted_values.csv", title = "L-moment Fitted Distributions"),
+              list(extend = 'excel', 
+                   filename = "fitted_values.csv", title = "L-moment Fitted Distributions")
+            ),
+            text = 'Download Results'
+          )),
         
         columnDefs = list(list(className = "dt-center", targets = "_all")),
         
