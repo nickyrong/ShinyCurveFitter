@@ -114,7 +114,7 @@ shinyUI(fluidPage(
                  DT::dataTableOutput("ffa.table"),
                  br(),
                  plotlyOutput("ffa.figure"),
-                 br()
+                 linebreaks(30)
                  
         ) # End of Main tab
         

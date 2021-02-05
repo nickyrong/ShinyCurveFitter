@@ -103,7 +103,7 @@ function(input, output, session) {
           'text/csv',
           'text/comma-separated-values',
           'csv'
-        ), "Wrong file format, try again!"))
+        ), "Wrong file format, please try again."))
       
       # only read data from the first column
       uploadedfile <- read.csv(inFile$datapath,
@@ -114,7 +114,7 @@ function(input, output, session) {
       validate(
         need(file_ext(inFile$name) %in% c(
           'xlsx'
-        ), "Wrong file format, try again!"))
+        ), "Wrong file format, please try again."))
       
       uploadedfile <- readxl::read_excel(inFile$datapath, 
                                          col_names = FALSE, 
@@ -140,7 +140,9 @@ function(input, output, session) {
     validate(
       need(!is.null(get_file()), "No file uploaded"))
     
-    get_file() %>% stat.desc(basic = TRUE, desc = TRUE, norm = TRUE)
+    get_file() %>% 
+      stat.desc(basic = TRUE, desc = TRUE, norm = TRUE) %>% 
+      round(digits = 3)
     
     })
   
@@ -184,7 +186,7 @@ function(input, output, session) {
         scale_x_continuous(name = "Return Periods", breaks =-log(-log(1-1/c(2,5,10,20,50,100,200,500,1000))), 
                           labels = c(2,5,10,20,50,100,200,500,1000)) +
         scale_y_continuous(name = 'Quantile', limits=c(0, NA)) + 
-        ggtitle("Fitted Distributions") + theme_bw() 
+        ggtitle("L-moments Fitted Frequency Distributions") + theme_bw() 
       
     )
     
@@ -207,14 +209,14 @@ function(input, output, session) {
     if (length(input$selector_Tr) < 1) (
       ffa_results <- lmom_Q(Qp = empirical.ffa$AMS) %>%
         mutate_at(vars(-Pnonexc), round(., 2)) %>%
-        mutate_at(vars(Pnonexc), round(., 2)) %>%
+        mutate_at(vars(Pnonexc), round(., 6)) %>%
         select(ReturnPeriods, Pnonexc, !!desired_columns) %>%
         rename("Return Periods" = ReturnPeriods, "Probability Non-Exc" = Pnonexc)
       
     ) else (
       ffa_results <- lmom_Q(Qp = empirical.ffa$AMS, empirical.Tr = as.integer(input$selector_Tr)) %>%
         mutate_at(vars(-Pnonexc), list(~round(., 2))) %>%
-        mutate_at(vars(Pnonexc), list(~round(., 2))) %>%
+        mutate_at(vars(Pnonexc), list(~round(., 6))) %>%
         select(ReturnPeriods, Pnonexc, !!desired_columns) %>%
         rename("Return Periods" = ReturnPeriods, "Probability Non-Exc" = Pnonexc)
     )

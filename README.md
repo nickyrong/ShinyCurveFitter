@@ -6,7 +6,7 @@ Some of the code were taken from [ShinyCFA](https://github.com/nickyrong/ShinyCF
 
 The frequency distribution(s) are fitted using L-moments method from R package [lmom](https://cran.r-project.org/web/packages/lmom/index.html) by J. R. M. Hosking. L-moments of the sample data are calculated. Distribution parameters are then estimated from the calculated L-moments.
 
-Return periods of annual maximum discharge are calculated using the Weibull formula: *Tr = (N+1) / m* where *N* is the sample size and *m* is the rank. Probability of Non-exceedance is the inverse of return period: *P = 1 / Tr*. Frequency distribution plots' x-axis has been transformed into probabilistic scale: *η = −log(−log(P)) = −log[−log(1 − 1/Tr)]* where *η* is the reduced variate.
+Return periods of the quantile values are calculated using the Weibull formula: *Tr = (N+1) / m* where *N* is the sample size and *m* is the rank. Probability of Non-exceedance is the inverse of return period: *P = 1 / Tr*. Frequency distribution plots' x-axis has been transformed into probabilistic scale: *η = −log(−log(P)) = −log[−log(1 − 1/Tr)]* where *η* is the reduced variate.
 
 **Further readings:**<br/>
 * Hosking, J., & Wallis, J. (1997). *Regional Frequency Analysis: An Approach Based on L-Moments*. Cambridge: Cambridge University Press. doi:10.1017/CBO9780511529443<br/>
@@ -15,9 +15,9 @@ Return periods of annual maximum discharge are calculated using the Weibull form
 
 
 ## Usage
-The file upload takes either CSV or Excel formats. In either case, only the **first column** will recognized. The imported file should **NOT** have header.
+The file upload takes either CSV or Excel formats. In either case, only the **first column** will be recognized. The imported file should **NOT** have header.
 
-Curve goodness-of-fit (GoF) is currently assessed qualitatively (aka "eye balling") by users. Quantitative GoF possible in future development?
+Although the original intend of the app (sister app `ShinyCFA`) was to fit streamflows, this app can be used to fit just about anything (for example, annual extreme precipitation).
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

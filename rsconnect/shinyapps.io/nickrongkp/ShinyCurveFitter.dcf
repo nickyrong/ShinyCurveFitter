@@ -1,0 +1,14 @@
+name: ShinyCurveFitter
+title: ShinyCurveFitter
+username:
+account: nickrongkp
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3151139
+bundleId: 4182956
+url: https://nickrongkp.shinyapps.io/ShinyCurveFitter/
+when: 1612489816.05199
+lastSyncTime: 1612489816.05199
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Book1.csv|Book1.xlsx
